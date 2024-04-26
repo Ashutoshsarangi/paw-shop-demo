@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
+import { Link as LinkScroll } from "react-scroll";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
 import Dog1 from "../../assets/animal/dog1.jpg";
 import Dog2 from "../../assets/animal/dog2.jpg";
@@ -15,8 +16,32 @@ import "./Home.css";
 const position = [51.505, -0.09];
 
 const Home = ({}) => {
+  const [modalState, setModalState] = useState(false);
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState({});
+
+  const handleModalClose = () => {
+    setModalState(false);
+  };
+
+  const handleSetting = () => {
+    if (password === "admin") {
+      setModalState(true);
+      setPassword("");
+    } else {
+      alert(" Please Enter Correct password !!!");
+    }
+  };
+
   return (
-    <div style={{ scrollbarWidth: "none" }}>
+    <div>
+      <div className="static top-[63px] right-0 left-0 z-10 w-full">
+        {status?.message && !modalState && (
+          <p className="bg-red-700 text-white text-center p-[20px] text-5xl">
+            {status?.message}
+          </p>
+        )}
+      </div>
       <div id="home">
         <div className="relative hidden md:block">
           <ReactPlayer
@@ -150,8 +175,60 @@ const Home = ({}) => {
           </MapContainer>
         </div>
       </div>
-      {/* <div id="map" style={{ height: "300px" }}></div> */}
+      <div className="card shadow-xl m-3 mt-3 bg-base-200" id="setting">
+        <div className="p-4">
+          <h1 className="text-5xl font-bold mb-2">Setting</h1>
+          <div className="space-y-3 items-center">
+            <input
+              type="password"
+              placeholder="Enter Password"
+              className="input input-bordered w-full max-w-s"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
+          <div className="text-end">
+            <button
+              className="btn btn-primary mt-4 text-center"
+              onClick={handleSetting}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="fixed bottom-[5px] right-[40px] z-10">
+        <LinkScroll
+          className="btn btn-circle btn-outline bg-black text-white hover:bg-white hover:text-black"
+          to="home"
+          smooth={true}
+          duration={500}
+        >
+          <i className="fa fa-chevron-up text-3xl"></i>
+        </LinkScroll>
+      </div>
+      <dialog id="my_modal_1" className={`modal ${modalState && "modal-open"}`}>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Add Your Status</h3>
+          <div className="modal-action">
+            <form method="dialog">
+              <textarea
+                className="textarea textarea-bordered w-full max-w-s"
+                placeholder="Message"
+                value={status?.message}
+                onChange={(e) =>
+                  setStatus({ ...status, message: e.target.value })
+                }
+              ></textarea>
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn" onClick={handleModalClose}>
+                Close
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
       <div className="card shadow-xl m-3 bg-base-200 " id="footer">
         <div className="text-center">Made With ❤ By Subha</div>
       </div>

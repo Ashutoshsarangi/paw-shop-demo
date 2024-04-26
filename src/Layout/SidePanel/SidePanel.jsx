@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { Link as LinkScroll } from "react-scroll";
 
 // const Menus = [
 //   { text: "Home", icon: <HomeIcon />, route: "/home" },
@@ -31,49 +33,55 @@ const SidePanel = ({}) => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-500 text-white rounded-box w-52"
           >
             <li>
-              <a>Item 1</a>
+              <LinkScroll to="about" smooth={true} duration={500}>
+                About
+              </LinkScroll>
             </li>
             <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
+              <LinkScroll to="service" smooth={true} duration={500}>
+                Service
+              </LinkScroll>
             </li>
             <li>
-              <a>Item 3</a>
+              <LinkScroll to="contact" smooth={true} duration={500}>
+                Contact
+              </LinkScroll>
+            </li>
+            <li>
+              <LinkScroll to="setting" smooth={true} duration={500}>
+                Setting
+              </LinkScroll>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Paw Seasons Spa</a>
+        <Link className="btn btn-ghost text-xl" to="/home">
+          Paw Seasons Spa
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <LinkScroll to="about" smooth={true} duration={500}>
+              About
+            </LinkScroll>
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
+            <LinkScroll to="service" smooth={true} duration={500}>
+              Service
+            </LinkScroll>
           </li>
           <li>
-            <a>Item 3</a>
+            <LinkScroll to="contact" smooth={true} duration={500}>
+              Contact
+            </LinkScroll>
+          </li>
+          <li>
+            <LinkScroll to="setting" smooth={true} duration={500}>
+              Setting
+            </LinkScroll>
           </li>
         </ul>
       </div>
