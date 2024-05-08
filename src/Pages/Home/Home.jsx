@@ -19,9 +19,23 @@ const Home = ({}) => {
   const [modalState, setModalState] = useState(false);
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState({});
+  const [contactInfo, setContactInfo] = useState({
+    fullName: "",
+    email: "",
+    messageBody: "",
+  });
 
   const handleModalClose = () => {
     setModalState(false);
+  };
+
+  const handleMailSend = () => {
+    window.location = `mailto:ashutoshsarangi95@gmail.com?cc=${contactInfo.email}&subject=Paw%20shop%20Contact&body=Hello ${contactInfo.fullName} ${contactInfo.messageBody}`;
+    setContactInfo({
+      fullName: "",
+      email: "",
+      messageBody: "",
+    });
   };
 
   const handleSetting = () => {
@@ -130,25 +144,40 @@ const Home = ({}) => {
               <input
                 type="text"
                 placeholder="Enter Full Name"
+                value={contactInfo.fullName}
+                onChange={(e) =>
+                  setContactInfo({ ...contactInfo, fullName: e.target.value })
+                }
                 className="input input-bordered w-full max-w-s"
               />
 
               <input
                 type="text"
                 placeholder="Email Address"
+                value={contactInfo.email}
+                onChange={(e) =>
+                  setContactInfo({ ...contactInfo, email: e.target.value })
+                }
                 className="input input-bordered w-full max-w-s"
               />
 
               <textarea
                 className="textarea textarea-bordered w-full max-w-s"
                 placeholder="Message"
+                value={contactInfo.messageBody}
+                onChange={(e) =>
+                  setContactInfo({
+                    ...contactInfo,
+                    messageBody: e.target.value,
+                  })
+                }
               ></textarea>
             </div>
 
             <div className="text-end">
               <a
                 className="btn btn-primary mt-4 text-center"
-                href="mailto:ashutoshsarangi95@gmail.com?cc=someoneelse@example.com&subject=Summer%20Party&body=You%20are%20invited%20to%20a%20big%20summer%20party!"
+                onClick={handleMailSend}
               >
                 Submit
               </a>
@@ -223,7 +252,7 @@ const Home = ({}) => {
               ></textarea>
               {/* if there is a button in form, it will close the modal */}
               <button className="btn" onClick={handleModalClose}>
-                Close
+                Save
               </button>
             </form>
           </div>
